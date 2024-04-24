@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-areas:
+    "red-area red-area green-area green-area"
+    "orange-area green-area green-area purple-area"
+    "mid-area white-area green-area white-area";
+}
+
+.red { grid-area: red-area; background-color: red; }
+.green { grid-area: green-area; background-color: green; }
+.orange { grid-area: orange-area; background-color: orange; }
+.mid { grid-area: mid-area; background-color: darkgreen; }
+.purple { grid-area: purple-area; background-color: purple; }
+.white { grid-area: white-area; background-color: white; }
+
+/* Tablet Layout */
+@media (max-width: 768px) {
+  .container {
+    grid-template-areas:
+      "red-area green-area green-area green-area"
+      "red-area mid-area purple-area purple-area"
+      "orange-area mid-area purple-area white-area";
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 480px) {
+  .container {
+    grid-template-areas:
+      "red-area green-area"
+      "mid-area green-area"
+      "orange-area purple-area"
+      "white-area purple-area";
+  }
+}
