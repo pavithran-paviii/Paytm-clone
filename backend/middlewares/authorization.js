@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../assets/data/constant");
 
 const authMiddleware = (req, res, next) => {
-  const authHeader = req.header.authorization;
+  const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(403).json({ message: "Token not valid" });
@@ -11,9 +11,9 @@ const authMiddleware = (req, res, next) => {
   try {
     const token = authHeader.split(" ")[1];
 
-    const verifyToken = jwt.verify(token, JWT_SECRET);
+    const verifyToken = jwt?.verify(token, JWT_SECRET);
 
-    if (verifyToken.userId) {
+    if (verifyToken?.userId) {
       req.userId = verifyToken.userId;
       next();
     } else {
@@ -21,10 +21,8 @@ const authMiddleware = (req, res, next) => {
     }
   } catch (error) {
     console.log(error.message, "Error while verifying token");
-    return res
-      .status(500)
-      .json({ message: "Server error while verifying token!" });
+    return res.status(500).json({ message: "Token not valid!" });
   }
 };
 
-module.exports = { authMiddleware };
+module.exports = authMiddleware;
